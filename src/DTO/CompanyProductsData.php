@@ -7,18 +7,18 @@ use Carbon\Carbon;
 final readonly class CompanyProductsData
 {
     public function __construct(
-        public string $company_product_number,
-        public string $name,
-        public string $active_flag,
-        public string $category_name,
-        public string $product_type,
-        public string $INV_UNIT_PKG_TYPE,
-        public string $INV_UNIT1_PKG_TYPE,
-        public string $INV_UNIT2_PKG_TYPE,
-        public string $ISSUE_UNIT1_CONV,
-        public string $ISSUE_UNIT2_CONV,
-        public string $RECIPE_UNIT1_PKG,
-        public string $RECIPE_UNIT1_CONV,
+        public ?string $company_product_number,
+        public ?string $name,
+        public ?string $active_flag,
+        public ?string $category_name,
+        public ?string $product_type,
+        public ?string $INV_UNIT_PKG_TYPE,
+        public ?string $INV_UNIT1_PKG_TYPE,
+        public ?string $INV_UNIT2_PKG_TYPE,
+        public ?string $ISSUE_UNIT1_CONV,
+        public ?string $ISSUE_UNIT2_CONV,
+        public ?string $RECIPE_UNIT1_PKG,
+        public ?string $RECIPE_UNIT1_CONV,
     )
     {
     }

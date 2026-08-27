@@ -7,16 +7,16 @@ use Illuminate\Support\Carbon;
 final readonly class LocationData
 {
     public function __construct(
-        public string  $code,
-        public string  $name,
-        public string  $city,
-        public string  $market,
-        public string  $email,
-        public string  $active_flag,
-        public string  $franchise_Code,
-        public string  $baseCurrency,
-        public string  $allow_auto_transfer,
-        public string  $allow_auto_post,
+        public ?string  $code,
+        public ?string  $name,
+        public ?string  $city,
+        public ?string  $market,
+        public ?string  $email,
+        public ?string  $active_flag,
+        public ?string  $franchise_Code,
+        public ?string  $baseCurrency,
+        public ?string  $allow_auto_transfer,
+        public ?string  $allow_auto_post,
         public ?string $last_inventory_post_date
     )
     {
@@ -25,9 +25,8 @@ final readonly class LocationData
 
     public static function fromArray(array $data): self
     {
-        $locationNameAddressDetails = $data['locationNameAddressDetails'][0] ?? [];
-        $locationDetailDetails = $data['locationDetailDetails'][0] ?? [];
-
+        $locationNameAddressDetails = data_get($data, 'locationNameAddressDetails.0', []);
+        $locationDetailDetails = data_get($data, 'locationDetailDetails.0', []);
         return new self(
             code: $data['locationCode'],
             name: $locationNameAddressDetails['locationName'],

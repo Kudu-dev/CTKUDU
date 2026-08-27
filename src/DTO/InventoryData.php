@@ -7,13 +7,13 @@ use Carbon\Carbon;
 final readonly class InventoryData
 {
     public function __construct(
-        public string $location_number,
-        public string $request_date,
-        public string $inventory_date,
-        public string $user_id,
-        public string $storage_code,
-        public string $product_number,
-        public float  $quantity,
+        public ?string $location_number,
+        public ?string $request_date,
+        public ?string $inventory_date,
+        public ?string $user_id,
+        public ?string $storage_code,
+        public ?string $product_number,
+        public ?float  $quantity,
         public ?float $alt_quantity_1,
         public ?float $alt_quantity_2,
         public ?float $alt_quantity_3,

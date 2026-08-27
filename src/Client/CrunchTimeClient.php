@@ -21,7 +21,6 @@ class CrunchTimeClient
     protected int $retryTimes;
     protected int $retrySleep;
 
-    private CTKuduLogger $logger;
 
     public function __construct($goal)
     {
@@ -38,7 +37,6 @@ class CrunchTimeClient
         $this->retryTimes = (int)config('ctkudu.retry.times', 3);
         $this->retrySleep = (int)config('ctkudu.retry.sleep', 500);
 
-        $this->logger = new CTKuduLogger();
     }
 
     protected function request(): PendingRequest
@@ -67,10 +65,6 @@ class CrunchTimeClient
 
     public function get(string $endpoint, array $query = []): array
     {
-        $this->logger->info('Sending request to CrunchTime', [
-            'endpoint' => $endpoint,
-            'query' => $query,
-        ]);
 
         $response = $this->request()->get($endpoint, $query);
 

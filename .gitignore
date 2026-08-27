@@ -1,0 +1,50 @@
+# Dependencies
+/vendor
+/node_modules
+
+# Package development environment
+/workbench/
+
+# Environment
+.env
+.env.backup
+.env.production
+
+# Logs / Runtime
+*.log
+/storage/*.key
+/storage/pail
+
+# Testing
+.phpunit.result.cache
+/.phpunit.cache
+
+# IDEs
+/.idea
+/.vscode
+/.cursor/
+/.nova
+/.zed
+.phpactor.json
+_ide_helper.php
+
+# Laravel
+/public/build
+/public/fonts-manifest.dev.json
+/public/hot
+/public/storage
+
+# Tools
+/.codex
+/auth.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Homestead
+Homestead.json
+Homestead.yaml
+
+# Composer
+composer.lock

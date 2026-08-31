@@ -73,7 +73,7 @@ class LocationsEndpoint
      * @param string $locationCode The location code to search for.
      * @return array|null The location data if found, or null if not found.
      */
-    public function findByLocationCode(string $locationCode): LocationData|null
+    public function findByLocationCode(string $locationCode): ?LocationData
     {
         $locations = $this->get(['locationCode' => $locationCode]);
 

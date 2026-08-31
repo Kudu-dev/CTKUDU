@@ -17,6 +17,7 @@ return [
         'inventory' => env('CTKUDU_TOKEN_INVENTORY'),
         'recipe' => env('CTKUDU_TOKEN_RECIPE'),
         'purchaseorder' => env('CTKUDU_TOKEN_PURCHASEORDER'),
+        'transferred_purchase_orders' => env('CTKUDU_TOKEN_TRANSFERRED_PURCHASE_ORDERS'),
     ],
     'sitename' => env('CTKUDU_SITENAME'),
     'userid' => env('CTKUDU_USERID'),

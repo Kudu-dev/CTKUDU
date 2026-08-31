@@ -21,6 +21,14 @@ class ScheduledExportsEndpoint
         return $this->client->get(self::ENDPOINT, $query);
     }
 
+    /**
+     * Fetches scheduled exports for a given export date.
+     *
+     * @param string $exportDate The export date in 'mm/dd/yyyy' format.
+     * @param array $query Optional query parameters to include in the request.
+     * @return array The scheduled exports data.
+     * @throws \InvalidArgumentException If the export date is empty.
+     */
     public function getScheduledExports(string $exportDate, array $query = []): array
     {
         if (empty($exportDate)) {

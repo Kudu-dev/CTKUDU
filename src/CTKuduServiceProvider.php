@@ -10,6 +10,8 @@ use Kudu\CTKudu\Endpoints\LocationsEndpoint;
 use Kudu\CTKudu\Endpoints\ProductsEndpoint;
 use Kudu\CTKudu\Endpoints\PurchaseOrdersEndpoint;
 use Kudu\CTKudu\Endpoints\RecipesEndpoint;
+use Kudu\CTKudu\Endpoints\ScheduledExportsEndpoint;
+use Kudu\CTKudu\Endpoints\TransferredPurchaseOrderEndpoint;
 use Kudu\CTKudu\Endpoints\UnitOfMeasureEndpoint;
 
 class CTKuduServiceProvider extends ServiceProvider
@@ -27,6 +29,8 @@ class CTKuduServiceProvider extends ServiceProvider
         $this->app->singleton(InventoryEndpoint::class);
         $this->app->singleton(RecipesEndpoint::class);
         $this->app->singleton(PurchaseOrdersEndpoint::class);
+        $this->app->singleton(TransferredPurchaseOrderEndpoint::class);
+        $this->app->singleton(ScheduledExportsEndpoint::class);
     }
 
     public function boot(): void

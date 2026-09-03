@@ -14,9 +14,10 @@ final readonly class InventoryData
         public ?string $storage_code,
         public ?string $product_number,
         public ?float  $quantity,
-        public ?float $alt_quantity_1,
-        public ?float $alt_quantity_2,
-        public ?float $alt_quantity_3,
+        public ?float  $alt_quantity_1,
+        public ?float  $alt_quantity_2,
+        public ?float  $alt_quantity_3,
+        public ?string $inventory_unit
     )
     {
     }
@@ -45,6 +46,7 @@ final readonly class InventoryData
             alt_quantity_1: $data['altQuantity1'] ?? null,
             alt_quantity_2: $data['altQuantity2'] ?? null,
             alt_quantity_3: $data['altQuantity3'] ?? null,
+            inventory_unit: $data['inventoryUnit'] ?? null
         );
     }
 
@@ -62,6 +64,7 @@ final readonly class InventoryData
             'alt_quantity_1' => $this->alt_quantity_1,
             'alt_quantity_2' => $this->alt_quantity_2,
             'alt_quantity_3' => $this->alt_quantity_3,
+            'inventory_unit' => $this->inventory_unit,
         ];
     }
 }

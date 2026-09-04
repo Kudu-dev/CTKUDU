@@ -3,15 +3,15 @@
 namespace Kudu\CTKudu;
 
 use Illuminate\Support\ServiceProvider;
-use Kudu\CTKudu\Client\CrunchTimeClient;
 use Kudu\CTKudu\Endpoints\CompanyProductsEndpoint;
-use Kudu\CTKudu\Endpoints\InventoryEndpoint;
+use Kudu\CTKudu\Endpoints\Inventories\CurrentInventoryEndpoint;
+use Kudu\CTKudu\Endpoints\Inventories\InventoryEndpoint;
 use Kudu\CTKudu\Endpoints\LocationsEndpoint;
+use Kudu\CTKudu\Endpoints\Orders\PurchaseOrdersEndpoint;
+use Kudu\CTKudu\Endpoints\Orders\Transferred\ScheduledExportsEndpoint;
+use Kudu\CTKudu\Endpoints\Orders\Transferred\TransferredPurchaseOrderEndpoint;
 use Kudu\CTKudu\Endpoints\ProductsEndpoint;
-use Kudu\CTKudu\Endpoints\PurchaseOrdersEndpoint;
 use Kudu\CTKudu\Endpoints\RecipesEndpoint;
-use Kudu\CTKudu\Endpoints\ScheduledExportsEndpoint;
-use Kudu\CTKudu\Endpoints\TransferredPurchaseOrderEndpoint;
 use Kudu\CTKudu\Endpoints\UnitOfMeasureEndpoint;
 
 class CTKuduServiceProvider extends ServiceProvider
@@ -31,6 +31,7 @@ class CTKuduServiceProvider extends ServiceProvider
         $this->app->singleton(PurchaseOrdersEndpoint::class);
         $this->app->singleton(TransferredPurchaseOrderEndpoint::class);
         $this->app->singleton(ScheduledExportsEndpoint::class);
+        $this->app->singleton(CurrentInventoryEndpoint::class);
     }
 
     public function boot(): void

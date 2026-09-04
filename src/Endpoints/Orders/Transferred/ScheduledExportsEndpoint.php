@@ -1,9 +1,8 @@
 <?php
 
-namespace Kudu\CTKudu\Endpoints;
+namespace Kudu\CTKudu\Endpoints\Orders\Transferred;
 
 use Kudu\CTKudu\Client\CrunchTimeClient;
-use Kudu\CTKudu\DTO\UnitOfMeasureData;
 
 class ScheduledExportsEndpoint
 {

@@ -1,8 +1,7 @@
 <?php
 
-namespace Kudu\CTKudu\Endpoints;
+namespace Kudu\CTKudu\Endpoints\Inventories;
 
-use Carbon\Carbon;
 use Exception;
 use InvalidArgumentException;
 use Kudu\CTKudu\Client\CrunchTimeClient;

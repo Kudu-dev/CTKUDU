@@ -149,7 +149,7 @@ $withoutDetails = $companyProducts->getWithoutDetails();
 ### Inventory
 
 ```php
-use Kudu\CTKudu\Endpoints\InventoryEndpoint;
+use Kudu\CTKudu\Endpoints\Inventories\InventoryEndpoint;
 
 $inventory = app(InventoryEndpoint::class);
 
@@ -184,7 +184,7 @@ This returns an array with:
 ### Purchase orders
 
 ```php
-use Kudu\CTKudu\Endpoints\PurchaseOrdersEndpoint;
+use Kudu\CTKudu\Endpoints\Orders\PurchaseOrdersEndpoint;
 
 $orders = app(PurchaseOrdersEndpoint::class);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kudu\CTKudu\Endpoints;
+namespace Kudu\CTKudu\Endpoints\Orders;
 
 use Carbon\Carbon;
 use Kudu\CTKudu\Client\CrunchTimeClient;

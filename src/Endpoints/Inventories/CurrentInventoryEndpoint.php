@@ -19,6 +19,10 @@ class CurrentInventoryEndpoint
         $this->client = new CrunchTimeClient(self::SIGNATURE);
     }
 
+    private function formatResponse(array $response): array
+    {
+        return $response['currentInventoryDetails'][0]['currentInventoryDetailDetails'] ?? [];
+    }
 
     public function get(array $query = []): array
     {
@@ -36,19 +40,19 @@ class CurrentInventoryEndpoint
 
         $products = $this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'pageSize' => 100, ...$query]);
 
-        $currentInventoryDetails = array_merge($currentInventoryDetails, $products['currentInventoryDetails'][0]['currentInventoryDetailDetails']);
+        $currentInventoryDetails = array_merge($currentInventoryDetails, $this->formatResponse($products));
 
         if ($products['hasNext']) {
             $page_number = 2;
             while ($products['hasNext']) {
                 $products = $this->getForLocationByPageNumber($page_number, $store_code, $query);
-                $currentInventoryDetails = array_merge($currentInventoryDetails, $products['currentInventoryDetails'][0]['currentInventoryDetailDetails']);
+                $currentInventoryDetails = array_merge($currentInventoryDetails, $this->formatResponse($products));
                 $page_number++;
             }
         }
 
 
-        $today_date = Carbon::now()->format('Y-m-d H:i:s');
+        $today_date = Carbon::now()->format('Y-m-d');
         return CurrentInventoryData::collection($currentInventoryDetails, $today_date);
     }
 
@@ -73,9 +77,11 @@ class CurrentInventoryEndpoint
         }
 
         $products = $this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'productNumber' => $product_number, 'pageSize' => 100, ...$query]);
-        $products = $products['currentInventoryDetails'][0]['currentInventoryDetailDetails'] ?? [];
+        $products = $this->formatResponse($products);
 
-        return CurrentInventoryData::fromArray($products, Carbon::now()->format('Y-m-d H:i:s'));
+        print_r($products); // Debugging line to check the structure of $products
+
+        return CurrentInventoryData::fromArray($products, Carbon::now()->format('Y-m-d'));
     }
 
 

@@ -33,8 +33,6 @@ final readonly class CurrentInventoryData
 
     public static function collection(array $multi_data_array, $pull_date): array
     {
-        $multi_data_array = $multi_data_array[0]['physicalInventoryStandardDetailDetails'] ?? [];
-
         return array_map(
             fn(array $data) => self::fromArray($data, $pull_date),
             $multi_data_array

@@ -72,7 +72,10 @@ class CurrentInventoryEndpoint
             throw new InvalidArgumentException('Invalid product number format. Expected a string.');
         }
 
-        return CurrentInventoryData::fromArray($this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'productNumber' => $product_number, 'pageSize' => 100, ...$query]), Carbon::now()->format('Y-m-d H:i:s'));
+        $products = $this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'productNumber' => $product_number, 'pageSize' => 100, ...$query]);
+        $products = $products['currentInventoryDetails'][0]['currentInventoryDetailDetails'] ?? [];
+
+        return CurrentInventoryData::fromArray($products, Carbon::now()->format('Y-m-d H:i:s'));
     }
 
 

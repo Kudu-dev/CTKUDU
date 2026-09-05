@@ -49,7 +49,7 @@ class CurrentInventoryEndpoint
 
 
         $today_date = Carbon::now()->format('Y-m-d H:i:s');
-        return CurrentInventoryData::collection($currentInventoryDetails , $today_date);
+        return CurrentInventoryData::collection($currentInventoryDetails, $today_date);
     }
 
     public function getForLocationByPageNumber(string $page_number, string $store_code, array $query = []): array
@@ -62,7 +62,7 @@ class CurrentInventoryEndpoint
     }
 
 
-    public function getForLocationAndProduct(string $product_number, string $store_code, array $query = []): array
+    public function getForLocationAndProduct(string $product_number, string $store_code, array $query = []): CurrentInventoryData
     {
         if (!is_string($store_code)) {
             throw new InvalidArgumentException('Invalid store code format. Expected a string.');
@@ -72,7 +72,7 @@ class CurrentInventoryEndpoint
             throw new InvalidArgumentException('Invalid product number format. Expected a string.');
         }
 
-        return $this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'productNumber' => $product_number, 'pageSize' => 100, ...$query]);
+        return CurrentInventoryData::fromArray($this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'productNumber' => $product_number, 'pageSize' => 100, ...$query]), Carbon::now()->format('Y-m-d H:i:s'));
     }
 
 

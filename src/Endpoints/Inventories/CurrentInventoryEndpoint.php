@@ -42,7 +42,7 @@ class CurrentInventoryEndpoint
             $page_number = 2;
             while ($products['hasNext']) {
                 $products = $this->getForLocationByPageNumber($page_number, $store_code, $query);
-                $currentInventoryDetails = array_merge($currentInventoryDetails, $products['currentInventoryDetails']['currentInventoryDetailDetails']);
+                $currentInventoryDetails = array_merge($currentInventoryDetails, $products['currentInventoryDetails'][0]['currentInventoryDetailDetails']);
                 $page_number++;
             }
         }

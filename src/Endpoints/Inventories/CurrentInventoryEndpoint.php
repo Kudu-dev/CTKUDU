@@ -36,7 +36,7 @@ class CurrentInventoryEndpoint
 
         $products = $this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'pageSize' => 100, ...$query]);
 
-        $currentInventoryDetails = array_merge($currentInventoryDetails, $products['currentInventoryDetails']['currentInventoryDetailDetails']);
+        $currentInventoryDetails = array_merge($currentInventoryDetails, $products['currentInventoryDetails'][0]['currentInventoryDetailDetails']);
 
         if ($products['hasNext']) {
             $page_number = 2;

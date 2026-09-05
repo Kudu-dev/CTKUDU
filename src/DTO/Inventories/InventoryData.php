@@ -1,6 +1,6 @@
 <?php
 
-namespace Kudu\CTKudu\DTO;
+namespace Kudu\CTKudu\DTO\Inventories;
 
 use Carbon\Carbon;
 

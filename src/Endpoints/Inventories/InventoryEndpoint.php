@@ -5,7 +5,7 @@ namespace Kudu\CTKudu\Endpoints\Inventories;
 use Exception;
 use InvalidArgumentException;
 use Kudu\CTKudu\Client\CrunchTimeClient;
-use Kudu\CTKudu\DTO\InventoryData;
+use Kudu\CTKudu\DTO\Inventories\InventoryData;
 
 class InventoryEndpoint
 {

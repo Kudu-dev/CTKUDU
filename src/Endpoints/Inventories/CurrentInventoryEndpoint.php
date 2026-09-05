@@ -2,10 +2,10 @@
 
 namespace Kudu\CTKudu\Endpoints\Inventories;
 
-use Exception;
+use Carbon\Carbon;
 use InvalidArgumentException;
 use Kudu\CTKudu\Client\CrunchTimeClient;
-use Kudu\CTKudu\DTO\InventoryData;
+use Kudu\CTKudu\DTO\Inventories\CurrentInventoryData;
 
 class CurrentInventoryEndpoint
 {
@@ -47,7 +47,9 @@ class CurrentInventoryEndpoint
             }
         }
 
-        return $currentInventoryDetails;
+
+        $today_date = Carbon::now()->format('Y-m-d H:i:s');
+        return CurrentInventoryData::collection($currentInventoryDetails , $today_date);
     }
 
     public function getForLocationByPageNumber(string $page_number, string $store_code, array $query = []): array

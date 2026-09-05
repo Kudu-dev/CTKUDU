@@ -19,10 +19,6 @@ class CurrentInventoryEndpoint
         $this->client = new CrunchTimeClient(self::SIGNATURE);
     }
 
-    private function formatResponse(array $response): array
-    {
-        return $response['currentInventoryDetails'][0]['currentInventoryDetailDetails'] ?? [];
-    }
 
     public function get(array $query = []): array
     {
@@ -32,57 +28,58 @@ class CurrentInventoryEndpoint
 
     public function getForLocation(string $store_code, array $query = []): array
     {
-        if (!is_string($store_code)) {
-            throw new InvalidArgumentException('Invalid store code format. Expected a string.');
-        }
+        $this->validateStoreCode($store_code);
 
         $currentInventoryDetails = [];
 
-        $products = $this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'pageSize' => 100, ...$query]);
+        $page_number = 1;
+        $hasNext = true;
 
-        $currentInventoryDetails = array_merge($currentInventoryDetails, $this->formatResponse($products));
+        while ($hasNext) {
+            $products = $this->getForLocationByPageNumber($page_number, $store_code, $query);
+            $currentInventoryDetails = array_merge($currentInventoryDetails, $this->formatResponse($products));
 
-        if ($products['hasNext']) {
-            $page_number = 2;
-            while ($products['hasNext']) {
-                $products = $this->getForLocationByPageNumber($page_number, $store_code, $query);
-                $currentInventoryDetails = array_merge($currentInventoryDetails, $this->formatResponse($products));
-                $page_number++;
-            }
+            $hasNext = $products['hasNext'] ?? false;
+            $page_number++;
         }
 
-
-        $today_date = Carbon::now()->format('Y-m-d');
+        $today_date = Carbon::now()->format('Y-m-d H:i:s');
         return CurrentInventoryData::collection($currentInventoryDetails, $today_date);
     }
 
-    public function getForLocationByPageNumber(string $page_number, string $store_code, array $query = []): array
+    public function getForLocationByPageNumber(int $page_number, string $store_code, array $query = []): array
     {
-        if (!is_string($store_code)) {
-            throw new InvalidArgumentException('Invalid store code format. Expected a string.');
+        $this->validateStoreCode($store_code);
+
+        if (!$page_number) {
+            throw new InvalidArgumentException('Invalid page number. Expected a positive integer.');
         }
 
         return $this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'pageSize' => 100, 'pageNumber' => $page_number, ...$query]);
     }
 
 
-    public function getForLocationAndProduct(string $product_number, string $store_code, array $query = []): CurrentInventoryData
+    public function getForLocationAndProduct(string $product_number, string $store_code, array $query = []): array
     {
-        if (!is_string($store_code)) {
-            throw new InvalidArgumentException('Invalid store code format. Expected a string.');
-        }
+        $this->validateStoreCode($store_code);
 
         if (!is_string($product_number)) {
             throw new InvalidArgumentException('Invalid product number format. Expected a string.');
         }
 
-        $products = $this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'productNumber' => $product_number, 'pageSize' => 100, ...$query]);
-        $products = $this->formatResponse($products);
-
-        print_r($products); // Debugging line to check the structure of $products
-
-        return CurrentInventoryData::fromArray($products, Carbon::now()->format('Y-m-d'));
+        $products = $this->formatResponse($this->client->get(self::ENDPOINT, ['locationCode' => $store_code, 'productNumber' => $product_number, 'pageSize' => 100, ...$query]));
+        return CurrentInventoryData::collection($products, Carbon::now()->format('Y-m-d H:i:s'));
     }
 
+    private function validateStoreCode(string $store_code): void
+    {
+        if (!is_string($store_code)) {
+            throw new InvalidArgumentException('Invalid store code format. Expected a string.');
+        }
+    }
 
+    private function formatResponse(array $response): array
+    {
+        return $response['currentInventoryDetails'][0]['currentInventoryDetailDetails'] ?? [];
+    }
 }

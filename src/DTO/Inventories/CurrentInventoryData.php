@@ -26,7 +26,8 @@ final readonly class CurrentInventoryData
         public ?float  $total_value,
         public ?float  $customer_order_quantity,
         public ?float  $vendor_order_quantity,
-        public ?string $pull_date
+        public ?string $pull_date,
+        public ?string $pull_time
     )
     {
     }
@@ -42,7 +43,6 @@ final readonly class CurrentInventoryData
 
     public static function fromArray(array $data, $pull_date): self
     {
-
         return new self(
             location_code: $data['locationCode'],
             location_name: $data['locationName'],
@@ -63,7 +63,8 @@ final readonly class CurrentInventoryData
             total_value: $data['totalValue'],
             customer_order_quantity: $data['customerOrderQuantity'],
             vendor_order_quantity: $data['vendorOrderQuantity'],
-            pull_date: $pull_date,
+            pull_date: explode(' ', $pull_date)[0] ?? null,
+            pull_time: explode(' ', $pull_date)[1] ?? null
 
         );
     }
@@ -92,6 +93,7 @@ final readonly class CurrentInventoryData
             'customer_order_quantity' => $this->customer_order_quantity,
             'vendor_order_quantity' => $this->vendor_order_quantity,
             'pull_date' => $this->pull_date,
+            'pull_time' => $this->pull_time,
         ];
     }
 }

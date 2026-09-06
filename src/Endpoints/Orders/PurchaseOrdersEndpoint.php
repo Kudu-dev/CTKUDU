@@ -46,7 +46,7 @@ class PurchaseOrdersEndpoint
             'locationCode' => $location_code,
             'purchaseOrderNumber' => $transaction_number,
             ...$query
-        ])[0]['details'], $reference_number);
+        ])[0]['details'], $reference_number , $transaction_number);
 
     }
 

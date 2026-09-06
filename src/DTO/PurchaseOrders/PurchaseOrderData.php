@@ -5,7 +5,6 @@ namespace Kudu\CTKudu\DTO\PurchaseOrders;
 
 final readonly class PurchaseOrderData
 {
-    public array $items;
 
     public function __construct(
         public ?string $expectedDeliveryDate,
@@ -25,7 +24,6 @@ final readonly class PurchaseOrderData
         public ?bool   $doNotTransmitFlag
     )
     {
-        $this->items = [];
 
     }
 

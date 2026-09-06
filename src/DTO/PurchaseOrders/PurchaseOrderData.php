@@ -20,6 +20,7 @@ final readonly class PurchaseOrderData
         public ?string $confirmUser,
         public ?string $reconcileUser,
         public ?string $submitDate,
+        public ?bool   $doNotTransmitFlag
     )
     {
 
@@ -51,6 +52,7 @@ final readonly class PurchaseOrderData
             confirmUser: $data['confirmUser'],
             reconcileUser: $data['reconcileUser'] ?? null,
             submitDate: date('Y-m-d H:i:s', strtotime($data['submitDate'])) >= date('Y-m-d 00:00:00') ? date('Y-m-d H:i:s', strtotime($data['submitDate'] . ' -1 day')) : date('Y-m-d H:i:s', strtotime($data['submitDate'])),
+            doNotTransmitFlag: $data['doNotTransmitFlag'] ?? null,
         );
     }
 
@@ -71,6 +73,7 @@ final readonly class PurchaseOrderData
             'confirmUser' => $this->confirmUser,
             'reconcileUser' => $this->reconcileUser,
             'submitDate' => $this->submitDate,
+            'doNotTransmitFlag' => $this->doNotTransmitFlag,
         ];
     }
 }

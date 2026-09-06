@@ -3,8 +3,9 @@
 namespace Kudu\CTKudu\DTO\PurchaseOrders;
 
 
-final readonly class PurchaseOrderData
+final  class PurchaseOrderData
 {
+    public array $items = [];
 
     public function __construct(
         public ?string $expectedDeliveryDate,

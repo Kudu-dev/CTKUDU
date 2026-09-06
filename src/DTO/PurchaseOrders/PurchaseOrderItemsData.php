@@ -3,7 +3,7 @@
 namespace Kudu\CTKudu\DTO\PurchaseOrders;
 
 
-final readonly class PurchaseOrderItemsData
+final  class PurchaseOrderItemsData
 {
     public function __construct(
         public ?string $referenceNumber,

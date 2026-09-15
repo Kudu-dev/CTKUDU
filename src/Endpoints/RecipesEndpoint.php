@@ -9,6 +9,8 @@ use Kudu\CTKudu\DTO\Recipes\RecipeIngredientsData;
 class RecipesEndpoint
 {
     private const ENDPOINT = '/recipe/v2/getAllRecipesEnhanced';
+
+    private const ENDPOINT_BY_PAGE = '/recipe/v2/getRecipesEnhancedByPage';
     private const SIGNATURE = 'recipe';
     private CrunchTimeClient $client;
 
@@ -53,7 +55,7 @@ class RecipesEndpoint
 
         $recipe_ingredients = $recipe[0]['recipeEnhancedComponentDetails'] ?? [];
 
-        if(!$recipe_ingredients) {
+        if (!$recipe_ingredients) {
             return [
                 'header' => $recipe_header,
                 'ingredients' => [],
@@ -69,5 +71,48 @@ class RecipesEndpoint
 
     }
 
+    public function getAllWithIngredients(array $query = [])
+    {
+        $pageNumber = 1;
+        $hasNext = true;
 
+        $allRecipes = [];
+
+        while ($hasNext) {
+
+            $response = $this->client->get(self::ENDPOINT_BY_PAGE, [...$query, 'includeDetails' => 'true', 'componentDetails' => 'true', 'includeNull' => 'false', 'pageNumber' => $pageNumber]);
+
+            $hasNext = $response['hasNext'] ?? false;
+            $pageNumber = $pageNumber + 1;
+
+            foreach ($response['recipeEnhancedDetails'] as $recipe) {
+                $recipe_header = $recipe['recipeEnhancedHeaderDetails'] ?? null;
+                $recipe_details = $recipe['recipeEnhancedComponentDetails'] ?? null;
+
+                if (!$recipe_header) {
+                    continue;
+                }
+
+                $recipe_header = RecipeData::fromArray($recipe_header);
+
+                if (!$recipe_details) {
+                    $allRecipes[] = [
+                        'header' => $recipe_header,
+                        'ingredients' => [],
+                    ];
+                    continue;
+                }
+
+                $recipe_ingredients = RecipeIngredientsData::collection($recipe_details, $recipe_header->plunumber, $recipe_header->name);
+
+                $allRecipes[] = [
+                    'header' => $recipe_header,
+                    'ingredients' => $recipe_ingredients,
+                ];
+            }
+
+        }
+
+        return $allRecipes;
+    }
 }

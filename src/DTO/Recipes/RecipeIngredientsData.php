@@ -40,8 +40,8 @@ final readonly class RecipeIngredientsData
             majoringredient: $data['majorIngredient'],
             recipepackage: $data['recipePackage'],
             preproduction: $data['preProduction'],
-            specialinstruction1: $data['specialInstruction1'] ?? '-',
-            specialinstruction2: $data['specialInstruction2'] ?? '-',
+            specialinstruction1: $data['specialInstruction1'] ?? null,
+            specialinstruction2: $data['specialInstruction2'] ?? null,
             scalingfactor: $data['scalingFactor'],
             sequence_number: $data['sequence'],
         );

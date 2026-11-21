@@ -25,11 +25,12 @@ class CrunchTimeClient
     public function __construct($goal)
     {
         $this->baseUrl = rtrim((string)config('ctkudu.base_url'), '/');
-        $this->token = (string)config('ctkudu.tokens.' . $goal);
+//        $this->token = (string)config('ctkudu.tokens.' . $goal);
+        $this->token = (string)config('ctkudu.general_token');
         $this->sitename = (string)config('ctkudu.sitename');
         $this->userId = (string)config('ctkudu.userid');
         $this->password = (string)config('ctkudu.password');
-        $this->traceId = (string)config('ctkudu.X-B3-TraceId');
+        $this->traceId = (string)config('ctkudu.traceId');
 
         $this->timeout = (int)config('ctkudu.timeout', 60);
         $this->connectTimeout = (int)config('ctkudu.connect_timeout', 60);

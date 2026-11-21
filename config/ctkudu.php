@@ -19,6 +19,7 @@ return [
         'purchaseorder' => env('CTKUDU_TOKEN_PURCHASEORDER'),
         'transferred_purchase_orders' => env('CTKUDU_TOKEN_TRANSFERRED_PURCHASE_ORDERS'),
     ],
+    'general_token' => env('CTKUDU_TOKEN'),
     'sitename' => env('CTKUDU_SITENAME'),
     'userid' => env('CTKUDU_USERID'),
     'password' => env('CTKUDU_PASSWORD'),

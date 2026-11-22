@@ -35,8 +35,8 @@ class ScheduledExportsEndpoint
         }
 
         $payload = [
-            'userIdForDetails' => 6104,
 //            'userIdForDetails' => (string)config('ctkudu.userid'),
+            'userIdForDetails' => 6104,
             'extractName' => 'CT Inventory - Location Transfer, Delta',
             'exportType' => 'USER_DEFINED',
             'exportDate' => $exportDate
